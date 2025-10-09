@@ -1,0 +1,28 @@
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.burst {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 220px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  /* starburst / pointy circle using clip-path */
+  clip-path: polygon(
+    50% 0%,
+    60% 25%,
+    98% 35%,
+    68% 50%,
+    79% 79%,
+    50% 62%,
+    21% 79%,
+    32% 50%,
+    2% 35%,
+    40% 25%
+  );
+  filter: drop-shadow(0 4px 14px rgba(0,0,0,0.25));
+}
