@@ -36,24 +36,14 @@ const renderer = new THREE.WebGLRenderer({
   const mtlLoader = new MTLLoader();
   const objLoader = new OBJLoader();
   
-  // Load the cake texture separately to ensure it gets included in the build
-  const textureLoader = new THREE.TextureLoader();
-  const cakeTexture = textureLoader.load(new URL('./candy_text_ornament.jpg', import.meta.url).href);
-  cakeTexture.colorSpace = THREE.SRGBColorSpace;
+  // Ensure the cake texture is included in the build
+  import('./candy_text_ornament.jpg');
   
   mtlLoader.load(new URL('./10868_birthday-cake_v3.mtl', import.meta.url).href, (materials) => {
     materials.preload();
     objLoader.setMaterials(materials);
     
     objLoader.load(new URL('./10868_birthday-cake_v3.obj', import.meta.url).href, (object) => {
-      // Apply the texture to the material that uses it
-      object.traverse((child) => {
-        if (child.isMesh && child.material.name === '24___Default') {
-          child.material.map = cakeTexture;
-          child.material.needsUpdate = true;
-        }
-      });
-      
       object.rotation.x = Math.PI*1.85;
       object.rotation.y = Math.PI/6;
       object.rotation.z = Math.PI/6;
