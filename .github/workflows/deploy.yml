@@ -19,21 +19,17 @@ jobs:
       with:
         node-version: '18'
         cache: 'npm'
-        cache-dependency-path: daulet-project/package-lock.json
+        cache-dependency-path: package-lock.json
         
     - name: Install dependencies
-      run: |
-        cd daulet-project
-        npm ci
+      run: npm ci
         
     - name: Build
-      run: |
-        cd daulet-project
-        npm run build
+      run: npm run build
         
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
       if: github.ref == 'refs/heads/main'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./daulet-project/dist
+        publish_dir: ./dist
