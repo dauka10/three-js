@@ -13,7 +13,7 @@ const renderer = new THREE.WebGLRenderer({
   renderer.setSize(window.innerWidth, window.innerHeight);
   camera.position.setZ(30);
 
-  const texture = new THREE.TextureLoader().load(new URL('./pls.png', import.meta.url).href);
+  const texture = new THREE.TextureLoader().load('/pls.png');
   texture.colorSpace = THREE.SRGBColorSpace;
 
   // Create coin geometry (flat cylinder)
@@ -36,14 +36,11 @@ const renderer = new THREE.WebGLRenderer({
   const mtlLoader = new MTLLoader();
   const objLoader = new OBJLoader();
   
-  // Ensure the cake texture is included in the build
-  import('./candy_text_ornament.jpg');
-  
-  mtlLoader.load(new URL('./10868_birthday-cake_v3.mtl', import.meta.url).href, (materials) => {
+  mtlLoader.load('/10868_birthday-cake_v3.mtl', (materials) => {
     materials.preload();
     objLoader.setMaterials(materials);
     
-    objLoader.load(new URL('./10868_birthday-cake_v3.obj', import.meta.url).href, (object) => {
+    objLoader.load('/10868_birthday-cake_v3.obj', (object) => {
       object.rotation.x = Math.PI*1.85;
       object.rotation.y = Math.PI/6;
       object.rotation.z = Math.PI/6;
@@ -57,7 +54,7 @@ const renderer = new THREE.WebGLRenderer({
   });
 
  
-  objLoader.load(new URL('./20813_Number_3_v1.obj', import.meta.url).href, (object) => {
+  objLoader.load('/20813_Number_3_v1.obj', (object) => {
     
     object.traverse((child) => {
       if (child.isMesh) {
@@ -85,7 +82,7 @@ const renderer = new THREE.WebGLRenderer({
     };
   });
 
-  objLoader.load(new URL('./20815_Number_5_v1.obj', import.meta.url).href, (object) => {
+  objLoader.load('/20815_Number_5_v1.obj', (object) => {
     
     object.traverse((child) => {
       if (child.isMesh) {
@@ -164,7 +161,7 @@ const renderer = new THREE.WebGLRenderer({
 
   Array(500).fill().forEach(addStar)
 
-  const spaceTexture = new THREE.TextureLoader().load(new URL('./black.jpg', import.meta.url).href);
+  const spaceTexture = new THREE.TextureLoader().load('/black.jpg');
   spaceTexture.colorSpace = THREE.SRGBColorSpace;
 
   scene.background = spaceTexture;
