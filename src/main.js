@@ -113,6 +113,33 @@ const renderer = new THREE.WebGLRenderer({
     };
   });
 
+  import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
+  import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
+
+  const fontLoader = new FontLoader();
+  fontLoader.load(new URL('./Brich_Regular.json', import.meta.url).href, (font) => {
+    const textGeometry = new TextGeometry('by Daulet Ozgeldi', {
+      font,
+      size: 4.5,
+      height: 0.2,
+      curveSegments: 12,
+      bevelEnabled: true,
+      bevelThickness: 0.03,
+      bevelSize: 0.02,
+      bevelOffset: 0,
+      bevelSegments: 5
+    });
+
+    const textMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 0.3, roughness: 0.7 });
+    const textMesh = new THREE.Mesh(textGeometry, textMaterial);
+    textMesh.position.set(-30, 0, -15);
+    textMesh.rotation.x = Math.PI*3/2;
+    textMesh.rotation.z = Math.PI/4;
+    textMesh.castShadow = true;
+    textMesh.receiveShadow = true;
+    scene.add(textMesh);
+  });
+
   const pointLight = new THREE.PointLight(0xffffff, 1000)
   pointLight.position.set(15,0,15)
 
@@ -129,13 +156,13 @@ const renderer = new THREE.WebGLRenderer({
     const material = new THREE.MeshStandardMaterial( { color: 0xffffff} )
     const star = new THREE.Mesh(geometry, material);
 
-    const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
+    const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(400));
 
     star.position.set(x,y,z);
     scene.add(star)
   }
 
-  Array(200).fill().forEach(addStar)
+  Array(500).fill().forEach(addStar)
 
   const spaceTexture = new THREE.TextureLoader().load(new URL('./black.jpg', import.meta.url).href);
   spaceTexture.colorSpace = THREE.SRGBColorSpace;
